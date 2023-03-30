@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { Container, Row, Col, Button, Stack } from 'react-bootstrap'
 import useTranslateSettings from './hooks/useTranslateSettings'
 import { AUTO_LANGUAGE } from './constants'
-import ArrowIcon from './components/ArrowIcon'
+import { ArrowIcon, ClipboardIcon, SpeakerIcon } from './components/Icon'
 import LanguageSelector from './components/LanguageSelector'
 import { SectionType } from './types.d'
 import Textarea from './components/Textarea'
@@ -19,6 +19,16 @@ function App () {
   } = useTranslateSettings()
 
   const debouncedFromText = useDebounce(fromText, 500)
+
+  function handleClipboard () {
+    navigator.clipboard.writeText(result).catch(() => {})
+  }
+
+  function handleSpeaker () {
+    const utterance = new SpeechSynthesisUtterance(result)
+    utterance.lang = toLanguage
+    speechSynthesis.speak(utterance)
+  }
 
   useEffect(() => {
     if (debouncedFromText === '') return
@@ -71,12 +81,29 @@ function App () {
               onChange={setToLanguage}
             />
 
-            <Textarea
-              loading={loading}
-              type={SectionType.To}
-              value={result}
-              onChange={setResult}
-            />
+            <div style={{ position: 'relative' }}>
+              <Textarea
+                loading={loading}
+                type={SectionType.To}
+                value={result}
+                onChange={setResult}
+              />
+              <div style={{ position: 'absolute', bottom: 5, left: 5, display: 'flex' }}>
+                <Button
+                  variant='link'
+                  onClick={handleClipboard}
+                >
+                  <ClipboardIcon />
+                </Button>
+
+                <Button
+                  variant='link'
+                  onClick={handleSpeaker}
+                >
+                  <SpeakerIcon />
+                </Button>
+              </div>
+            </div>
           </Stack>
         </Col>
       </Row>
