@@ -7,6 +7,9 @@ import ArrowIcon from './components/ArrowIcon'
 import LanguageSelector from './components/LanguageSelector'
 import { SectionType } from './types.d'
 import Textarea from './components/Textarea'
+import { useEffect } from 'react'
+import { translate } from './services/translate'
+import useDebounce from './hooks/useDebounce'
 
 function App () {
   const {
@@ -14,6 +17,20 @@ function App () {
     setFromLanguage, setToLanguage, toLanguage,
     fromText, result, setFromText, setResult
   } = useTranslateSettings()
+
+  const debouncedFromText = useDebounce(fromText, 500)
+
+  useEffect(() => {
+    if (debouncedFromText === '') return
+
+    translate({ fromLanguage, toLanguage, text: debouncedFromText })
+      .then(result => {
+        if (result == null) return
+
+        setResult(result)
+      })
+      .catch(() => { setResult('Error') })
+  }, [debouncedFromText, fromLanguage, toLanguage])
 
   return (
     <Container fluid>
