@@ -28,7 +28,6 @@ function App () {
             />
 
             <Textarea
-              placeholder='Traducción'
               type={SectionType.From}
               value={fromText}
               onChange={setFromText}
@@ -55,7 +54,6 @@ function App () {
             />
 
             <Textarea
-              placeholder='Traducción'
               type={SectionType.To}
               value={result}
               onChange={setResult}

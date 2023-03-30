@@ -3,19 +3,31 @@ import { SectionType } from '../types.d'
 
 interface Props {
   type: SectionType
-  placeholder: string
   loading?: boolean
   onChange: (value: string) => void
   value: string
 }
 
-const Textarea = ({ loading, type, placeholder, value, onChange }: Props) => {
+const commonStyles = { border: 0, height: '200px' }
+
+const getPlaceholder = ({ type, loading }: { type: SectionType, loading?: boolean }) => {
+  if (type === SectionType.From) return 'Introducir texto'
+  if (loading === true) return 'Cargando...'
+  return 'Traducción'
+}
+
+const Textarea = ({ loading, type, value, onChange }: Props) => {
+  const styles = type === SectionType.From
+    ? commonStyles
+    : { ...commonStyles, backgroundColor: '#f5f5f5' }
+
   return (
     <Form.Control
     as='textarea'
-    placeholder={placeholder}
+    placeholder={getPlaceholder({ type, loading })}
     autoFocus={type === SectionType.From}
-    style={{ height: '150px' }}
+    style={styles}
+    value={value}
   />
   )
 }
