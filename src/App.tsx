@@ -10,10 +10,11 @@ import Textarea from './components/Textarea'
 
 function App () {
   const {
-    fromLanguage, interchangeLanguages,
+    fromLanguage, interchangeLanguages, loading,
     setFromLanguage, setToLanguage, toLanguage,
     fromText, result, setFromText, setResult
   } = useTranslateSettings()
+
   return (
     <Container fluid>
       <h2>Google Translator Clone</h2>
@@ -54,6 +55,7 @@ function App () {
             />
 
             <Textarea
+              loading={loading}
               type={SectionType.To}
               value={result}
               onChange={setResult}
