@@ -3,13 +3,13 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import useTranslateSettings from './hooks/useTranslateSettings'
 
 function App () {
-  const { dispatch } = useTranslateSettings()
+  const { setFromLenguage } = useTranslateSettings()
   return (
     <div className="App">
       <h1>Google Translator Clone</h1>
       <button
       onClick={() => {
-        dispatch({ type: 'SET_FROM_LANGUAGE', payload: 'es' })
+        setFromLenguage('es')
       }}
       >Cambiar a Español</button>
     </div>

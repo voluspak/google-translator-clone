@@ -61,12 +61,36 @@ export default function useTranslateSettings () {
     result
   }, dispatch] = useReducer(reducer, initialState)
 
+  const interchangeLenguages = () => {
+    dispatch({ type: 'INTERCHANGE_LENGUAGES' })
+  }
+
+  const setFromLenguage = (payload) => {
+    dispatch({ type: 'SET_FROM_LANGUAGE', payload })
+  }
+
+  const setToLenguage = (payload) => {
+    dispatch({ type: 'SET_TO_LANGUAGE', payload })
+  }
+
+  const setFromText = (payload) => {
+    dispatch({ type: 'SET_FROM_TEXT', payload })
+  }
+
+  const setResult = (payload) => {
+    dispatch({ type: 'SET_RESULT', payload })
+  }
+
   return {
     fromLanguage,
     fromText,
     toLanguage,
     loading,
     result,
-    dispatch
+    setFromLenguage,
+    setFromText,
+    setResult,
+    setToLenguage,
+    interchangeLenguages
   }
 }
