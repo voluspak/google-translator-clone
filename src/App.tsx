@@ -7,9 +7,7 @@ import { ArrowIcon, ClipboardIcon, SpeakerIcon } from './components/Icon'
 import LanguageSelector from './components/LanguageSelector'
 import { SectionType } from './types.d'
 import Textarea from './components/Textarea'
-import { useEffect } from 'react'
-import { getTranslate } from './services/translate'
-import useDebounce from './hooks/useDebounce'
+import useTranslation from './hooks/useTranslation'
 
 function App () {
   const {
@@ -18,29 +16,7 @@ function App () {
     fromText, result, setFromText, setResult
   } = useTranslateSettings()
 
-  const debouncedFromText = useDebounce(fromText, 500)
-
-  function handleClipboard () {
-    navigator.clipboard.writeText(result).catch(() => {})
-  }
-
-  function handleSpeaker () {
-    const utterance = new SpeechSynthesisUtterance(result)
-    utterance.lang = toLanguage
-    speechSynthesis.speak(utterance)
-  }
-
-  useEffect(() => {
-    if (debouncedFromText === '') return
-
-    getTranslate({ fromLanguage, toLanguage, text: debouncedFromText })
-      .then(result => {
-        if (result == null) return
-
-        setResult(result)
-      })
-      .catch(() => { setResult('Error') })
-  }, [debouncedFromText, fromLanguage, toLanguage])
+  const { handleClipboard, handleSpeaker } = useTranslation({ fromLanguage, toLanguage, fromText, result, setResult })
 
   return (
     <Container fluid>
