@@ -1,0 +1,10 @@
+.textareaAndButtonsContainer {
+    position: 'relative';
+}
+
+.buttonsContainer {
+    position: 'absolute';
+    bottom: 5; 
+    left: 5; 
+    display: 'flex';
+}

@@ -8,6 +8,7 @@ import LanguageSelector from './components/LanguageSelector'
 import { SectionType } from './types.d'
 import Textarea from './components/Textarea'
 import useTranslation from './hooks/useTranslation'
+import Styles from './styles/app.module.css'
 
 function App () {
   const {
@@ -57,14 +58,14 @@ function App () {
               onChange={setToLanguage}
             />
 
-            <div style={{ position: 'relative' }}>
+            <div className={Styles.textareaAndButtonsContainer}>
               <Textarea
                 loading={loading}
                 type={SectionType.To}
                 value={result}
                 onChange={setResult}
               />
-              <div style={{ position: 'absolute', bottom: 5, left: 5, display: 'flex' }}>
+              <div className={Styles.buttonsContainer}>
                 <Button
                   variant='link'
                   onClick={handleClipboard}
