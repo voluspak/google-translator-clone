@@ -8,7 +8,7 @@ import LanguageSelector from './components/LanguageSelector'
 import { SectionType } from './types.d'
 import Textarea from './components/Textarea'
 import { useEffect } from 'react'
-import { translate } from './services/translate'
+import { getTranslate } from './services/translate'
 import useDebounce from './hooks/useDebounce'
 
 function App () {
@@ -33,7 +33,7 @@ function App () {
   useEffect(() => {
     if (debouncedFromText === '') return
 
-    translate({ fromLanguage, toLanguage, text: debouncedFromText })
+    getTranslate({ fromLanguage, toLanguage, text: debouncedFromText })
       .then(result => {
         if (result == null) return
 
