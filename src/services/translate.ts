@@ -6,7 +6,7 @@ interface Translation {
 
 export async function getTranslate ({ fromLanguage, toLanguage, text }: { fromLanguage: FromLanguage, toLanguage: Language, text: string }) {
   try {
-    const response = await fetch('http://localhost:5000/api/translate', {
+    const response = await fetch('https://translator-clone.onrender.com/api/translate', {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
