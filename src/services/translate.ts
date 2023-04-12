@@ -19,7 +19,8 @@ export async function getTranslate ({ fromLanguage, toLanguage, text }: { fromLa
     })
 
     if (!response.ok) {
-      return 'No se pudo obtener la traducción'
+      console.log('No se pudo obtener la traducción')
+      return
     }
 
     const data: Translation = await response.json()

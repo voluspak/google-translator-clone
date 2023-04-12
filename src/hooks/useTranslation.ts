@@ -23,14 +23,16 @@ const useTranslation = ({ fromLanguage, toLanguage, fromText, result, setResult 
 
   useEffect(() => {
     if (debouncedFromText === '') return
-    console.log('useEffect')
     getTranslate({ fromLanguage, toLanguage, text: debouncedFromText })
       .then(result => {
         if (result == null) return
 
         setResult(result)
       })
-      .catch(() => { setResult('Error') })
+      .catch((error) => {
+        console.log(error)
+        setResult('Translation error with the API')
+      })
   }, [debouncedFromText, fromLanguage, toLanguage])
 
   return { handleClipboard, handleSpeaker }
